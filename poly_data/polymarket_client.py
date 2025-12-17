@@ -280,6 +280,32 @@ class PolymarketClient:
         """
         self.client.cancel_market_orders(market=marketId)
 
+    def cancel_order(self, order_id):
+        """
+        Cancel a specific order.
+
+        Args:
+            order_id (str): Order ID
+        """
+        return self.client.cancel(order_id)
+
+    def get_market(self, condition_id):
+        """
+        Get market details.
+
+        Args:
+            condition_id (str): Condition ID (often confusingly called market_id in some contexts) or Token ID?
+            Note: ClobClient get_market takes condition_id usually.
+
+        Returns:
+            dict: Market details
+        """
+        try:
+             return self.client.get_market(condition_id)
+        except Exception as e:
+             print(f"Error fetching market {condition_id}: {e}")
+             return {}
+
     
     def merge_positions(self, amount_to_merge, condition_id, is_neg_risk_market):
         """
